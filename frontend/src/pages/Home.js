@@ -1,17 +1,16 @@
 import { useState, useEffect } from "react"
-
+import { getTodos } from "../api/getTodos"
 const Home = () => {
 
     const [todos, setTodos] = useState([])
 
-    const fetchHandler = async () => {
-        let response = await fetch('http://localhost:4000/todos/items')
-        let data = await response.json()
-        setTodos(data.todos)
-    }
 
     useEffect(() => {
-        fetchHandler()
+        let fetchTodos = async () => {
+            let data = await getTodos()
+            setTodos(data)
+        }
+        fetchTodos()
     }, [])
     
     if(!todos) {
